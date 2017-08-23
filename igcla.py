@@ -3,8 +3,12 @@ import re
 import sys
 
 def get_entries():
+    ### Change the password 
+    password = 'yourpasswordhere'
+
+
     m = imaplib.IMAP4_SSL('imap.gmail.com')
-    m.login('igclareg@gmail.com','igclareg17')
+    m.login('igclareg@gmail.com',password)
     m.select('INBOX')
 
     igcla_mails = m.search(None,'SUBJECT IGCLA')
