@@ -1,6 +1,5 @@
 import imaplib, email
 import re
-import pandas as pd
 import sys
 
 def get_entries():
@@ -30,11 +29,32 @@ def get_entries():
                 sys.stdout.flush()
                 #print(d)
                 all_data.append(d)
+                #print(d.keys())
     return all_data
 data = get_entries()
 print("Writing to file igcla_registration.csv")
-df = pd.DataFrame(data)
-df.to_csv('igcla_registration.csv',index=False)
+cols = [    'Registration Id ', 
+            'Name of the Applicant ', 
+            'College ', 
+            'Mobile ', 
+            'Whatsapp No ', 
+            'Gender', 
+            'Registration number, if MU Student ', 
+            'Presenting Poster', 
+            'Email ', 
+            'Receipt No', 
+            'Accomodation ', 
+            'Reference name, if any']
+
+with open('igcla_registration.csv','w') as f:
+    f.write(','.join(cols))
+    f.write('\n')
+    for sample in data:
+        l = []
+        for entry in cols:
+            l.append(sample.get(entry,''))
+        f.write(','.join(l))
+        f.write('\n')
 print("Done")
 
 
